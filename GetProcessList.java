@@ -4,7 +4,8 @@
 // PJ Emmert
 // Mamadou Ndiong
 
-package com.sample.javaapplication;
+// change package to your appropriate package name
+package cosc439term;
 import java.io.*;
 import java.util.StringTokenizer;
 
