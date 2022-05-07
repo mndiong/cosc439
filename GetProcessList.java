@@ -4,17 +4,19 @@
 // PJ Emmert
 // Mamadou Ndiong
 
-package com.sample.javaapplication;
+// update package name to appropriate  package name
+package cosc439term;
 import java.io.*;
 import java.util.StringTokenizer;
 
 public class GetProcessList {
-
+    
     private String GetProcessListData() {
 
         Process p;
         Runtime runTime;
         String process = null;
+        
         //Attempts to read the processes running on the local system
         try { 
             System.out.println("Processes Reading is started...");
@@ -51,28 +53,31 @@ public class GetProcessList {
 
     private void showProcessData() {
         try {
-
-    //Call the method For Read the process        
-    String proc = GetProcessListData();
+            
+            //Call the method For Read the process      
+            String proc = GetProcessListData();
  
-    //Create Streams for write processes
-    //Given the filepath which you need.Its store the file at where your java file.
+            //Create Streams for write processes
+            //Given the filepath which you need.Its store the file at where your java file.
 
-    OutputStreamWriter outputStreamWriter =
-            new OutputStreamWriter(new FileOutputStream("ProcessList.txt"));
-    BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
+            OutputStreamWriter outputStreamWriter = 
+                    new OutputStreamWriter(new FileOutputStream("ProcessList.txt"));
+    
+            BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
 
-    //Tokenize the output for write the processes
-    StringTokenizer st = new StringTokenizer(proc, "&");
+            //Tokenize the output for write the processes
+            StringTokenizer st = new StringTokenizer(proc, "&");
+    
+            while (st.hasMoreTokens()) {
+                bufferedWriter.write(st.nextToken());  //Write the data in file
+                bufferedWriter.newLine();               //Allocate new line for next line
+            }
 
-    while (st.hasMoreTokens()) {
-        bufferedWriter.write(st.nextToken());  //Write the data in file
-        bufferedWriter.newLine();               //Allocate new line for next line
-    }
-
-    //Close the outputStreams
-    bufferedWriter.close();
-    outputStreamWriter.close();
+   
+            //Close the outputStreams
+            bufferedWriter.close();
+            outputStreamWriter.close();
+            
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -83,4 +88,3 @@ public class GetProcessList {
         gpl.showProcessData();
     }
 }
-
