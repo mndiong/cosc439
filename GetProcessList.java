@@ -13,7 +13,7 @@ public class GetProcessList {
     
     private String GetProcessListData() {
 
-        Process p;
+        Process proc;
         Runtime runTime;
         String process = null;
         
@@ -21,10 +21,10 @@ public class GetProcessList {
         try { 
             System.out.println("Processes Reading is started...");
             runTime = Runtime.getRuntime();
-            p = runTime.exec("tasklist");
+            proc = runTime.exec("tasklist");
  
             //We want to create an Inputstream to read processes
-            InputStream inputStream = p.getInputStream();
+            InputStream inputStream = proc.getInputStream();
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
  
