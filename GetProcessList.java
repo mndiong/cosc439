@@ -69,9 +69,9 @@ public class GetProcessList {
             StringTokenizer st = new StringTokenizer(proc, "&");
     
             while (st.hasMoreTokens()) {
-                System.out.println(st.nextToken());     // this will print , in the terminal, the processes and task running on the machine
+                System.out.println(st.nextToken());     // this will print, in the terminal, the processes and task running on the machine
                 bufferedWriter.write(st.nextToken());  //Write the data in file
-                bufferedWriter.newLine();               //Allocate new line for next line
+                bufferedWriter.newLine();                 //Allocate new line for next line
             }
 
    
