@@ -7,6 +7,7 @@
 // update package name to appropriate  package name
 package cosc439term;
 import java.io.*;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class GetProcessList {
@@ -82,10 +83,26 @@ public class GetProcessList {
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
+
+    }
+    
+    public static void TaskKill(String pid) throws IOException{
+        try {
+            Runtime.getRuntime().exec("taskkill /F /PID " + pid);
+            System.out.println("Task killed");
+        } catch(IOException e){
+            System.out.println("Task Kill failure");
+            System.out.println(e);
+        }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         GetProcessList gpl = new GetProcessList();
         gpl.showProcessData();
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the PID you want to close: ");
+        String pid = input.nextLine();
+        TaskKill(pid);
+
     }
 }
