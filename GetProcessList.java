@@ -11,7 +11,7 @@ import java.util.StringTokenizer;
 
 public class GetProcessList {
     
-    private String GetProcessListData() {
+    private String GetRunningTasks() {
 
         Process proc;
         Runtime runTime;
@@ -55,7 +55,7 @@ public class GetProcessList {
         try {
             
             //Call the method For Read the process      
-            String proc = GetProcessListData();
+            String proc = GetRunningTasks();
             
             //Create Streams for write processes
             //Given the filepath which you need.Its store the file at where your java file.
