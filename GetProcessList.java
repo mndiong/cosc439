@@ -11,11 +11,11 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class GetProcessList {
-    
-    private String GetRunningTasks() {
 
+    private String GetRunningTasks() {
         Process proc;
         Runtime runTime;
+        
         String process = null;
         
         //Attempts to read the processes running on the local system
@@ -75,7 +75,6 @@ public class GetProcessList {
                 bufferedWriter.newLine();                 //Allocate new line for next line
             }
 
-   
             //Close the outputStreams
             bufferedWriter.close();
             outputStreamWriter.close();
@@ -83,7 +82,18 @@ public class GetProcessList {
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
+    }
+    
+    public static void OpenTasks(String task) {
+        Runtime app = Runtime.getRuntime();
+        try {
+          Process process = app.exec("calc");
+          process.destroy();
+          app.exec(task);
 
+        } catch (Exception Ex) {
+            System.out.println("Error: " + Ex.toString());
+        }
     }
     
     public static void TaskKill(String pid) throws IOException{
@@ -100,9 +110,8 @@ public class GetProcessList {
         GetProcessList gpl = new GetProcessList();
         gpl.showProcessData();
         Scanner input = new Scanner(System.in);
-        System.out.println("Enter the PID you want to close: ");
-        String pid = input.nextLine();
-        TaskKill(pid);
-
+        System.out.println("Enter the program you want to open: ");
+        String program = input.nextLine();
+        OpenTasks(program);
     }
 }
