@@ -85,9 +85,9 @@ public class GetProcessList {
         try {
             
             //Runtime.getRuntime().exec("taskkill /F /PID " + pid);
-            System.out.println("Task killed");
             Runtime rt = Runtime.getRuntime();
             rt.exec("taskkill /F /IM " + program+".exe");
+            System.out.println("Task killed");
             
         } catch(IOException e){
             System.out.println("Task Kill failure");
