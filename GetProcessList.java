@@ -53,7 +53,6 @@ public class GetProcessList {
     }
 
     private void showProcessData() {
-        try {
             
             //Call the method For Read the process      
             String proc = GetRunningTasks();
@@ -61,35 +60,20 @@ public class GetProcessList {
             //Create Streams for write processes
             //Given the filepath which you need.Its store the file at where your java file.
 
-            OutputStreamWriter outputStreamWriter = 
-                    new OutputStreamWriter(new FileOutputStream("ProcessList.txt"));
-    
-            BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
-
             //Tokenize the output for write the processes
             StringTokenizer st = new StringTokenizer(proc, "&");
     
             while (st.hasMoreTokens()) {
                 System.out.println(st.nextToken());     // this will print, in the terminal, the processes and task running on the machine
-                bufferedWriter.write(st.nextToken());  //Write the data in file
-                bufferedWriter.newLine();                 //Allocate new line for next line
             }
-
-            //Close the outputStreams
-            bufferedWriter.close();
-            outputStreamWriter.close();
-            
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
     }
     
     public static void OpenTasks(String task) {
         Runtime app = Runtime.getRuntime();
         try {
-          Process process = app.exec(task);
-          process.destroy();
-          //app.exec(task);
+          //Process process = app.exec(task);
+          //process.destroy();
+          app.exec(task);
 
         } catch (Exception Ex) {
             System.out.println("Error: " + Ex.toString());
@@ -112,14 +96,50 @@ public class GetProcessList {
     }
 
     public static void main(String[] args) throws IOException {
-        GetProcessList gpl = new GetProcessList();
-        gpl.showProcessData();
+        int in = 0;
+        int in2 = 0;
+        String program;
+        boolean loop = true;
+        boolean loop2 = true;
         Scanner input = new Scanner(System.in);
-        System.out.println("Enter the program you want to open: ");
-        String program = input.nextLine();
-        OpenTasks(program);
-        System.out.println("Enter the program you want to close: ");
-        String program2 = input.nextLine();
-        TaskKill(program2);
+        while(loop == true) {
+            System.out.println("Do you want to view all of the processes running on your computer? Enter 1 to view, 2 to exit.");
+            in = input.nextInt();
+            if(in == 1) {
+                GetProcessList gpl = new GetProcessList();
+                gpl.showProcessData();
+                loop = false;
+            }
+            else if(in == 2) {
+                System.exit(0);
+            }
+            else {
+                System.out.println("Invalid input. Try again.");
+            }
+        }
+        while(loop2 == true) {
+            System.out.println("Enter 1 to open a program. Enter 2 to close a program. Enter 3 to view the process list again. Enter 4 to exit.");
+            in2 = input.nextInt();
+            if(in2 == 1) {
+                System.out.println("Enter the name of the program you would like to open.");
+                program = input.next();
+                OpenTasks(program);
+            }
+            else if(in2 == 2) {
+                System.out.println("Enter the name of the program you would like to terminate.");
+                program = input.next();
+                TaskKill(program);
+            }
+            else if(in2 == 3) {
+                GetProcessList gpl = new GetProcessList();
+                gpl.showProcessData();
+            }
+            else if(in2 == 4) {
+                System.exit(0);
+            }
+            else {
+                System.out.println("Invalid input. Try again.");
+            }
+        }
     }
 }
