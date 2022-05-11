@@ -87,19 +87,24 @@ public class GetProcessList {
     public static void OpenTasks(String task) {
         Runtime app = Runtime.getRuntime();
         try {
-          Process process = app.exec("calc");
+          Process process = app.exec(task);
           process.destroy();
-          app.exec(task);
+          //app.exec(task);
 
         } catch (Exception Ex) {
             System.out.println("Error: " + Ex.toString());
         }
     }
     
-    public static void TaskKill(String pid) throws IOException{
+    // this takes the input of the name of the app the user wants to close and does exactly that
+    public static void TaskKill(String program) throws IOException{
         try {
-            Runtime.getRuntime().exec("taskkill /F /PID " + pid);
+            
+            //Runtime.getRuntime().exec("taskkill /F /PID " + pid);
             System.out.println("Task killed");
+            Runtime rt = Runtime.getRuntime();
+            rt.exec("taskkill /F /IM " + program+".exe");
+            
         } catch(IOException e){
             System.out.println("Task Kill failure");
             System.out.println(e);
@@ -113,5 +118,8 @@ public class GetProcessList {
         System.out.println("Enter the program you want to open: ");
         String program = input.nextLine();
         OpenTasks(program);
+        System.out.println("Enter the program you want to close: ");
+        String program2 = input.nextLine();
+        TaskKill(program2);
     }
 }
